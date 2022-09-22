@@ -10,6 +10,10 @@ const server = https.createServer((req, res) => {
     switch(method) {
         case 'get': {
             // handle get request
+            const response = get(req);
+            res.writeHead(200, response.head);
+            res.end(response.body);
+
             break;
         } case 'post': {
             // handle post request
@@ -25,11 +29,17 @@ const server = https.createServer((req, res) => {
             break;
         }
     }
-    
 });
 
-server.listen(3000, () => {
-    console.log('Server listening on port 3000');
+
+server.listen(3000, async () => {
+
+    setInterval(() => {
+        let d = new Date();
+        console.clear();
+        console.log(`Server is listening on port 3000.  [${d.toLocaleTimeString()}]`);
+        
+    }, 1000);
 });
 
 // processes get requets
