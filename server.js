@@ -1,6 +1,14 @@
 const https = require('https');
-// might not need fs but just for fun lets put it here.
-const fs = require('fs');
+
+const state = {
+    // global state
+    time : null,
+    error : [
+        // exampel of incident
+        // { code: 404, message: 'Not Found', timestamp : null, endpoint : null },
+    ],
+
+}
 
 const server = https.createServer((req, res) => {
 
@@ -35,9 +43,9 @@ const server = https.createServer((req, res) => {
 server.listen(3000, async () => {
 
     setInterval(() => {
-        let d = new Date();
+        state.time = new Date();
         console.clear();
-        console.log(`Server is listening on port 3000.  [${d.toLocaleTimeString()}]`);
+        console.log(`Server is listening on port 3000.  [${state.time.toLocaleTimeString()}]`);
         
     }, 1000);
 });
